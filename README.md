@@ -1,7 +1,4 @@
-# Authors and acknowledgment
-ИП-314 Бокий Влад и Марценович Данила
-
-# EVM
+# SimpleAssembler
 ## How to start
 ```
 make
