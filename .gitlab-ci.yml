@@ -1,0 +1,31 @@
+default:
+  image: ubuntu:latest
+
+.build-script:
+  script:
+    - echo "Compiling the code..."
+    - apt-get update -y
+    - apt-get install -y libncurses-dev
+    - apt-get install -y make
+    - apt-get install -y gcc
+    - make
+    - echo "Compile complete"
+
+.check-codestyle:
+  script:
+    - echo "Check codestyle..."
+    - git ls-files *.c *.h | xargs clang-format -i --verbose && git diff --exit-code
+    - echo "Codestyle is fine"
+
+stages:
+  - check-codestyle
+  - build
+
+checkstyle:
+  stage: check-codestyle
+  extends: .check-codestyle
+
+build:
+  stage: build
+  extends: .build-script
+
